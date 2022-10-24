@@ -14,7 +14,7 @@ interface RequestConfig extends CreateAxiosDefaults {
   interceptors?: RequestInterceptors
 }
 
-class Request {
+class XRequest {
   instance: AxiosInstance
   // 拦截器对象
   interceptorsObj?: RequestInterceptors
@@ -43,7 +43,7 @@ class Request {
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
         console.log('全局回应拦截')
-        return res
+        return res.data
       },
       (err: any) => err
     )
@@ -54,7 +54,7 @@ class Request {
   }
 }
 
-export default Request
+export default XRequest
 
 // const r1 = new Request({
 //   baseURL: 'https://www.mxnzp.com/api/history/today',
