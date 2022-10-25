@@ -25,7 +25,6 @@ class XRequest {
     //全局请求拦截
     this.instance.interceptors.request.use(
       (res: AxiosRequestConfig) => {
-        console.log('全局请求拦截')
         return res
       },
       (err: any) => err
@@ -42,10 +41,9 @@ class XRequest {
     //全局response拦截
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
-        console.log('全局回应拦截')
         return res.data
       },
-      (err: any) => err
+      (err: any) => false
     )
   }
 

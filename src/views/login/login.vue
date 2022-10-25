@@ -28,17 +28,18 @@
 </template>
 
 <script setup lang="ts">
+import { LocalCache } from '@/utils/Cache'
 import { ref } from 'vue'
 import LoginForm1 from './cnpm/login-form1.vue'
 import LoginForm2 from './cnpm/login-form2.vue'
 
-const isRemember = ref(false)
+const isRemember = ref(LocalCache.get('isRemember') ?? false)
 const activeName = ref('account')
 const form1 = ref<InstanceType<typeof LoginForm1>>()
 
 const handleOpen = function () {
   if (activeName.value === 'account') {
-    form1.value?.openMain()
+    form1.value?.openMain(isRemember.value)
   }
 }
 </script>

@@ -16,11 +16,12 @@ import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import useLoginStore from '@/store/Login'
 import type { FormRules, ElForm } from 'element-plus'
+import { LocalCache } from '@/utils/Cache'
 
 const ElFormRef = ref<InstanceType<typeof ElForm>>()
 const account = reactive({
-  name: '',
-  password: ''
+  name: LocalCache.get('name') ?? '',
+  password: LocalCache.get('password') ?? ''
 })
 
 const rules: FormRules = {
@@ -35,10 +36,23 @@ const rules: FormRules = {
 }
 
 const store = useLoginStore()
-function openMain() {
+function openMain(isRemember: boolean) {
   ElFormRef.value?.validate((valid) => {
     if (valid) {
-      store.loginAccountAction(account)
+      store.loginAccountAction(account).then((res) => {
+        if (!res) ElMessage.error('Oops, 账号密码错误!')
+        else {
+          if (isRemember) {
+            LocalCache.set('name', account.name)
+            LocalCache.set('password', account.password)
+            LocalCache.set('isRemember', true)
+          } else {
+            LocalCache.remove('name')
+            LocalCache.remove('password')
+            LocalCache.remove('isRemember')
+          }
+        }
+      })
     } else {
       ElMessage.error('Oops, this is a error message.')
     }
