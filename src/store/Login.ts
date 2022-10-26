@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import Internet from '@/service/Internet1'
 import { LocalCache } from '@/utils/Cache'
 import router from '@/router'
+import getRoutes from '@/utils/getRoutes'
 
 interface Istate {
   token: string
@@ -39,7 +40,6 @@ const useLoginStore = defineStore('login', {
       })
       //保存人物信息
       this.userInfo = res2.data
-      console.log(this.userInfo)
 
       const roleId = this.userInfo.role.id
       //返回当前角色的权限
@@ -48,10 +48,10 @@ const useLoginStore = defineStore('login', {
         url: `/role/${roleId}/menu`
       })
       this.userMenus = res3.data
-
       LocalCache.set('userInfo', this.userInfo)
       LocalCache.set('userMenus', this.userMenus)
-      router.push('/main')
+      getRoutes(this)
+      router.push(this.userMenus[0].children[0].url)
       return true
     }
   }

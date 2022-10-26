@@ -1,13 +1,12 @@
 <template>
-  <div class="main">
-    <router-view />
+  <div class="department">
+    <h2>department</h2>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="less" scoped>
-.main {
-  background-color: #ffffff;
+.department {
 }
 </style>

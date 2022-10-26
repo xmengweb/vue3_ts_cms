@@ -1,13 +1,12 @@
 <template>
-  <div class="main">
-    <router-view />
+  <div class="menu">
+    <h2>menu</h2>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="less" scoped>
-.main {
-  background-color: #ffffff;
+.menu {
 }
 </style>

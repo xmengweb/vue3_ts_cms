@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import mainAside from '@/components/main-aside/main-aside.vue'
 import useMainStore from '@/store/main'
+
 const mainStore = useMainStore()
 </script>
 

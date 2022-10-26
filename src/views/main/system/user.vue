@@ -1,13 +1,12 @@
 <template>
-  <div class="main">
-    <router-view />
+  <div class="user">
+    <h2>user</h2>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="less" scoped>
-.main {
-  background-color: #ffffff;
+.user {
 }
 </style>

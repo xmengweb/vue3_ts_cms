@@ -44,11 +44,15 @@
 import router from '@/router'
 import useLoginStore from '@/store/Login'
 import useMainStore from '@/store/main'
+import { LocalCache } from '@/utils/Cache'
 
 const store = useLoginStore()
 const mainStore = useMainStore()
 const outLogin = function () {
   router.push('/login')
+  LocalCache.remove('token')
+  LocalCache.remove('userMenus')
+  LocalCache.remove('userinfo')
 }
 </script>
 

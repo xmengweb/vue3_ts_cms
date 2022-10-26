@@ -12,10 +12,7 @@ const router = createRouter({
       path: '/login',
       component: () => import('@/views/login/login.vue')
     },
-    {
-      path: '/main',
-      component: () => import('@/views/main/main.vue')
-    },
+    { children: [], name: 'main', path: '/main', component: () => import('@/views/main/main.vue') },
     {
       path: '/:pathMatch(.*)',
       component: () => import('@/views/notFound/notFound.vue')
@@ -26,6 +23,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   if (to.path === '/main') {
     if (!LocalCache.get('token')) return '/login'
+    return LocalCache.get('userMenus')[0].children[0].url
   }
 })
 

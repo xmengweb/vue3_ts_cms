@@ -7,7 +7,7 @@
           <h5 class="mb-2" v-show="!mainStore.iscollapse">后台管理系统</h5>
         </div>
         <el-menu
-          :default-active="String(store.userMenus[0].children[0].id)"
+          :default-active="defaultUrl"
           class="el-menu-vertical-demo"
           background-color="#001529"
           text-color="#b7bdc3"
@@ -23,7 +23,9 @@
                 <span>{{ item.name }}</span>
               </template>
               <template v-for="item2 in item.children" :key="item2.id">
-                <el-menu-item :index="String(item2.id)">{{ item2.name }}</el-menu-item>
+                <el-menu-item :index="String(item2.id)" @click="openDetail(item2.url)">{{
+                  item2.name
+                }}</el-menu-item>
               </template>
             </el-sub-menu>
           </template>
@@ -36,9 +38,19 @@
 <script setup lang="ts">
 import useLoginStore from '@/store/Login'
 import useMainStore from '@/store/main'
+import router from '@/router/index'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import getRouteId from '@/utils/getRouteId'
 
+const route = useRoute()
+const id = getRouteId(route.path)
 const store = useLoginStore()
 const mainStore = useMainStore()
+const defaultUrl = ref(String(id))
+const openDetail = function (url: string) {
+  router.push(url)
+}
 </script>
 
 <style lang="less" scoped>
