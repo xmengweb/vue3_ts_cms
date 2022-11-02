@@ -30,7 +30,6 @@ const mainStore = useMainStore()
   .container {
     width: 100%;
     height: 100%;
-
     .el-aside {
       width: 210px;
       transition: width 0.3s ease-in-out;

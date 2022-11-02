@@ -9,7 +9,7 @@ export default function getRoutes(store: any) {
       const url = store.userMenus[i].children[j].url
       const pathurl: string = '../views' + url + '.vue'
       curObj.path = url.split('main/')[1]
-      curObj.component = () => import(`${pathurl}`)
+      curObj.component = () => import(/* @vite-ignore */ `${pathurl}`)
       newroute.push(curObj)
     }
   }

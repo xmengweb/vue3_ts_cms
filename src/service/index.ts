@@ -47,7 +47,7 @@ class XRequest {
     )
   }
 
-  request(config: AxiosRequestConfig) {
+  request(config: AxiosRequestConfig): Promise<any> {
     return this.instance.request(config)
   }
 }

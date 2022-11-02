@@ -8,6 +8,6 @@
 
 <style lang="less" scoped>
 .main {
-  background-color: #ffffff;
+  background-color: #f0f2f5;
 }
 </style>
