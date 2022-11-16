@@ -10,13 +10,20 @@
           <el-table-column :label="item.label" :width="item?.width" align="center">
             <template #default="scope">
               <div style="display: flex; align-items: center">
-                <el-image
-                  style="height: 50px; width: 50px"
-                  :src="newList[scope.$index].imgUrl"
-                  fit="cover"
-                  :preview-src-list="[newList[scope.$index].imgUrl]"
-                  preview-teleported
-                />
+                <el-skeleton :loading="isLoading" animated>
+                  <template #template>
+                    <el-skeleton-item variant="image" style="width: 50px; height: 50px" />
+                  </template>
+                  <template #default>
+                    <el-image
+                      style="height: 50px; width: 50px"
+                      :src="newList[scope.$index].imgUrl"
+                      fit="cover"
+                      :preview-src-list="[newList[scope.$index].imgUrl]"
+                      preview-teleported
+                    />
+                  </template>
+                </el-skeleton>
               </div>
             </template>
           </el-table-column>
@@ -61,6 +68,7 @@ import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue'
 import useMainStore from '@/store/main'
 import { storeToRefs } from 'pinia'
 
+const isLoading = ref(true)
 interface IProp {
   Config: {
     kind: string
@@ -80,6 +88,9 @@ const props = defineProps<IProp>()
 const { Config } = props
 const { kind, title, tableItems } = toRefs(reactive(Config))
 store.getList(kind.value, {})
+setTimeout(() => {
+  isLoading.value = false
+}, 600)
 
 const pageArray = ref([5, 10, 20, 30])
 const currentPage = ref(1)
