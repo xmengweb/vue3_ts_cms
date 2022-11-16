@@ -23,9 +23,7 @@
                 <span>{{ item.name }}</span>
               </template>
               <template v-for="item2 in item.children" :key="item2.id">
-                <el-menu-item :index="String(item2.id)" @click="openDetail(item2.url)">{{
-                  item2.name
-                }}</el-menu-item>
+                <el-menu-item :index="String(item2.id)" @click="openDetail(item2.url)">{{ item2.name }}</el-menu-item>
               </template>
             </el-sub-menu>
           </template>

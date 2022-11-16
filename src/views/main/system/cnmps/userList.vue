@@ -2,7 +2,7 @@
   <div class="userList">
     <div class="header">
       <h3>用户列表</h3>
-      <ElButton type="primary">新增数据</ElButton>
+      <ElButton type="primary" @click="createDia">新增数据</ElButton>
     </div>
     <el-table :data="newUserList" border style="width: 100%">
       <el-table-column type="selection" width="50" align="center" />
@@ -44,21 +44,17 @@
 </template>
 
 <script setup lang="ts">
-import type { IuserList } from '@/type/IuserList'
+import type { IuserList } from '@/type/IList'
 import { computed, ref, toRefs } from 'vue'
 import useMainStore from '@/store/main'
 
 interface Prop {
   userList: IuserList
 }
+const emit = defineEmits(['EditSignal'])
 const props = defineProps<Prop>()
 const { userList } = toRefs(props)
 const store = useMainStore()
-
-const handleEdit = (index: any, row: any) => {}
-const handleDelete = (index: any, row: any) => {
-  store.deleteUser(row.id)
-}
 
 const pageArray = ref([5, 10, 20, 30])
 const currentPage = ref(1)
@@ -68,6 +64,18 @@ const newUserList = computed(() => {
   const right = currentPage.value * pageSize.value
   return userList.value.slice(left, right)
 })
+
+const handleEdit = (index: any, row: any) => {
+  store.isEdit = true
+  store.isOpenDia = !store.isOpenDia
+  emit('EditSignal', row)
+}
+const handleDelete = (index: any, row: any) => {
+  store.deleteUser(row.id)
+}
+const createDia = () => {
+  store.isOpenDia = !store.isOpenDia
+}
 </script>
 
 <style lang="less" scoped>
